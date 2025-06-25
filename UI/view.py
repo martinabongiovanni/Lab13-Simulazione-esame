@@ -24,17 +24,17 @@ class View(ft.UserControl):
         self._title = ft.Text("TdP Lab 13 - simulazione esame", color="blue", size=24)
         self._page.controls.append(self._title)
 
-        self._ddAnno = ft.Dropdown(label="Anno")
+        self._ddAnno = ft.Dropdown(label="Anno", disabled=False)
         self._controller.fillDDYear()
-        self._btnCreaGrafo = ft.ElevatedButton(text="Vittorie Piloti", on_click=self._controller.handleCreaGrafo)
+        self._btnCreaGrafo = ft.ElevatedButton(text="Vittorie Piloti", on_click=self._controller.handleCreaGrafo, disabled=False)
 
         cont = ft.Container(self._ddAnno, width=250, alignment=ft.alignment.top_left)
         row1 = ft.Row([cont, self._btnCreaGrafo], alignment=ft.MainAxisAlignment.CENTER,
                       vertical_alignment=ft.CrossAxisAlignment.END)
 
-        self._txtIntK = ft.TextField(label="Dimensione K")
+        self._txtIntK = ft.TextField(label="Dimensione K", disabled=True)
         self._btnCerca = ft.ElevatedButton(text="Cerca Dream Team",
-                                           on_click=self._controller.handleCerca)
+                                           on_click=self._controller.handleCerca, disabled=True)
         row2 = ft.Row([ft.Container(self._txtIntK, width=250),
             ft.Container(self._btnCerca, width=250)
         ], alignment=ft.MainAxisAlignment.CENTER)
@@ -56,6 +56,12 @@ class View(ft.UserControl):
 
     def set_controller(self, controller):
         self._controller = controller
+
+    def create_alert(self, message):
+        dlg = ft.AlertDialog(title=ft.Text(message))
+        self._page.dialog = dlg
+        dlg.open = True
+        self._page.update()
 
     def update_page(self):
         self._page.update()
